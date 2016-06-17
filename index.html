@@ -2,23 +2,23 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimumscale=
+1.0, maximum-scale=1.0">
     <title>Algae Simulation 1</title>
-    <style>
-      canvas {
-        margin-left: auto;
-        margin-right: 25%;
-        display: block;
-        float: right;
-      }
-      #alert {
-        color: red;
-      }
-    </style>
+    <link href="css/style.css" rel="stylesheet">
   </head>
   <body>
-    <div style="text-align: center;">
+    <div id="header">
       <h1>Algae Simulation</h1>
       <p>Click button to grow!  Any key to reset!</p>
+    </div>
+    <div id="parent">
+      <div id="controls">
+        <!--<p id="angle">Angle</p>
+        <p id="offset">Offset</p>-->
+      </div>
+      <div id="canvas">
+      </div>
     </div>
 
     <script src="js/p5.js"></script>

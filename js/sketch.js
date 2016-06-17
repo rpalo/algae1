@@ -8,6 +8,8 @@ var aLabel;
 var offset;
 var offsetLabel;
 var grow;
+var canvas;
+var maxLen = 20;
 
 function generate(instructions) {
     var next = "";
@@ -19,7 +21,8 @@ function generate(instructions) {
 
 function setup() {
     var canvas = createCanvas(500, 500);
-    background(51);
+    canvas.parent("#canvas");
+    responsive();
     sentence = "X"
     rules = {
         "X": "FL[[X]RX]RF[RFX]LX",
@@ -29,19 +32,23 @@ function setup() {
         "[": "[",
         "L": "L"
     };
-    len = 20;
 
 
     aLabel = createP("Angle");
+    aLabel.parent("#controls");
     a = createSlider(0, 45, 25);
+    a.parent("#controls");
     offsetLabel = createP("Offset");
+    offsetLabel.parent("#controls");
     offset = createSlider(0, 30, 0);
-    createP("");
+    offset.parent("#controls");
     grow = createButton("Grow");
     grow.mousePressed(go);
+    grow.parent("#controls");
     kelp = createP("Kelp is fully grown!");
     kelp.id("alert");
     kelp.hide();
+    kelp.parent("#controls");
     theta = radians(a.value());
 
 }
@@ -63,7 +70,23 @@ function keyPressed() {
     sentence = "X";
     background(51);
     kelp.hide();
-    len = 20;
+    len = maxLen;
+}
+
+function windowResized() {
+    responsive();
+}
+
+function responsive() {
+    if (windowWidth < 1100) {
+        resizeCanvas(windowWidth*.5, windowWidth*.5);
+        maxLen = .05*windowWidth;
+    } else {
+        resizeCanvas(500, 500);
+        maxLen = 20;
+    }
+    background(51);
+    sentence = "X";
 }
 
 function follow(instructions, len, angle) {
@@ -90,6 +113,7 @@ function follow(instructions, len, angle) {
     ]
     resetMatrix();
     translate(width/2, height);
+    
     background(51);
     stroke(255);
     for (i=0; i < instructions.length; i++) {
