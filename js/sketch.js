@@ -3,6 +3,7 @@ var len;
 var sentence;
 var rules;
 var kelp;
+var reset;
 var a;
 var aLabel;
 var offset;
@@ -23,7 +24,6 @@ function setup() {
     var canvas = createCanvas(500, 500);
     canvas.parent("#canvas");
     responsive();
-    sentence = "X"
     rules = {
         "X": "FL[[X]RX]RF[RFX]LX",
         "F": "FF",
@@ -32,8 +32,6 @@ function setup() {
         "[": "[",
         "L": "L"
     };
-
-
     aLabel = createP("Angle");
     aLabel.parent("#controls");
     a = createSlider(0, 45, 25);
@@ -45,6 +43,9 @@ function setup() {
     grow = createButton("Grow");
     grow.mousePressed(go);
     grow.parent("#controls");
+    reset = createButton("Reset");
+    reset.mousePressed(resetKelp);
+    reset.parent("#controls");
     kelp = createP("Kelp is fully grown!");
     kelp.id("alert");
     kelp.hide();
@@ -66,7 +67,7 @@ function go() {
     
 }
 
-function keyPressed() {
+function resetKelp() {
     sentence = "X";
     background(51);
     kelp.hide();
@@ -80,13 +81,14 @@ function windowResized() {
 function responsive() {
     if (windowWidth < 1100) {
         resizeCanvas(windowWidth*.5, windowWidth*.5);
-        maxLen = .05*windowWidth;
+        maxLen = floor(.05*windowWidth);
     } else {
         resizeCanvas(500, 500);
         maxLen = 20;
     }
     background(51);
     sentence = "X";
+    len = maxLen;
 }
 
 function follow(instructions, len, angle) {
@@ -116,6 +118,7 @@ function follow(instructions, len, angle) {
     
     background(51);
     stroke(255);
+    console.log(instructions);
     for (i=0; i < instructions.length; i++) {
         for (j=0; j < options.length; j++) {
             if (options[j].letter == instructions.charAt(i)) {

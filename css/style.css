@@ -1,6 +1,10 @@
 body {
   font-family: "Segue UI", Arial, sans-serif;
+  background: #DFC9AE url("../img/algae-bg.jpg") no-repeat 100% 100%;
+  background-attachment: fixed;
 }
+
+
 
 #parent {
   display: block;
@@ -37,5 +41,8 @@ button {
 
   #parent {
     width: 90%;
+  }
+  body {
+    background: #DFC9AE;
   }
 }
